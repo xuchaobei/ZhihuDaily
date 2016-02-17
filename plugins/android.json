@@ -7,10 +7,10 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "io.cordova.zhihu"
         },
-        "cordova-plugin-crosswalk-webview": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.zhihu"
         }
     },

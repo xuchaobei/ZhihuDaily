@@ -16,9 +16,10 @@ function mainReducer(state = initialState, action){
 	    })
 
 	case REQUEST_LIST_SUCCESS:
+
 		return Object.assign({}, state, {
 	        fetching: false,
-	        news: action.news,
+	        news: state.news.concat(action.news),
 	        date: action.date
 	    })
 
