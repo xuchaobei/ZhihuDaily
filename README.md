@@ -1,6 +1,9 @@
 # ZhihuDaily
 仿知乎日报App，React+Redux+Cordova<br>
 
+<h3>截图</h3>
+![image](https://github.com/xuchaobei/ZhihuDaily/blob/master/src/img/demo.gif)
+
 <h3>环境准备</h3>
 1、安装Nodejs环境。<br>
 2、安装Cordova环境。<br>
