@@ -51,7 +51,7 @@ class Main extends Component{
 	    if (day >= 0 && day <= 9) {
 	        day = "0" + day;
 	    }
-		return ""+ year + month + day;; 
+		return ""+ year + month + day;
 	}
 
 	onNewsClick(id) {
@@ -68,15 +68,15 @@ class Main extends Component{
 Main.propTypes = {
   // Injected by React Redux
   news: PropTypes.array
-}
+};
 
 
 
 function mapStateToProps(state) {
-	const mystate = state.mainReducer
-	  return {
-	    news: mystate.news,    
-	  }
+	const mystate = state.mainReducer.toJSON();
+	return {
+		news: mystate.news
+	}
 }
 
 export default connect(mapStateToProps)(Main)

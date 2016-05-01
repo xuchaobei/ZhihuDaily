@@ -2,7 +2,7 @@ import React, { Component,PropTypes} from 'react'
 import fetchNews, {clearData} from '../actions/NewsDetailAction'
 import { connect } from 'react-redux'
 
-require('./NewsDetail.less')
+require('./NewsDetail.less');
 
 
 class NewsDetail extends Component{
@@ -61,7 +61,7 @@ NewsDetail.propTypes = {
 
 function mapStateToProps(state) {
 
-	const mystate = state.newsDetailReducer
+	const mystate = state.newsDetailReducer.toJSON();
 	return {
 	  	content: mystate.content,
 	    title: mystate.title,
