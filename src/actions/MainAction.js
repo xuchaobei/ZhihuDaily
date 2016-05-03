@@ -4,6 +4,8 @@ import uris from '../utils/uris'
 export const REQUEST_LIST = 'REQUEST_LIST'
 export const REQUEST_LIST_SUCCESS = 'REQUEST_LIST_SUCCESS'
 export const REQUEST_LIST_FAILURE = 'REQUEST_LIST_FAILURE'
+export const SET_POSITION_OFFSET = 'SET_POSITION_OFFSET'
+
 
 function requestList(date) {
   return {
@@ -16,7 +18,14 @@ function receiveList(date, json) {
   return {
     type: REQUEST_LIST_SUCCESS,
     date,
-    news: json.stories
+    news: json
+  }
+}
+
+export function setPositionOffset(offset){
+  return {
+    type: SET_POSITION_OFFSET,
+    positionOffset: offset
   }
 }
 
@@ -56,4 +65,6 @@ export default function fetchNewsList(date) {
       // In a real world app, you also want to
       // catch any error in the network call.
   }
+
+
 }

@@ -1,11 +1,12 @@
-import {REQUEST_LIST, REQUEST_LIST_SUCCESS, REQUEST_LIST_FAILURE} from '../actions/MainAction'
+import {REQUEST_LIST, REQUEST_LIST_SUCCESS, REQUEST_LIST_FAILURE, SET_POSITION_OFFSET} from '../actions/MainAction'
 import Immutable from 'immutable';
 
 
 const initialState = {
 	fetching : false,
 	news : [],
-	date : null
+	date : null,
+	positionOffset : 0
 };
 
 function mainReducer(state = Immutable.fromJS(initialState), action){
@@ -20,7 +21,7 @@ function mainReducer(state = Immutable.fromJS(initialState), action){
 	case REQUEST_LIST_SUCCESS:
 		return state.merge({
 			fetching: false,
-			news: state.get('news').concat(action.news),
+			news: state.get('news').push(action.news),
 			date: action.date
 		});
         //return Object.assign({}, state, {
@@ -35,6 +36,8 @@ function mainReducer(state = Immutable.fromJS(initialState), action){
 	        fetching: false
 
 	    })*/
+	case SET_POSITION_OFFSET:
+		return state.merge({positionOffset: action.positionOffset});
 	default:
 		return state
 
