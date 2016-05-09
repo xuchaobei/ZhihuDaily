@@ -5643,7 +5643,7 @@ blockquote p {
       cursor: pointer; }
       .slick-dots li button:hover, .slick-dots li button:focus {
         outline: none; }
-        .slick-dots li button:hover:before, .slick-dots li button:focus:before {
+        .slick-dots li button:hover:before {
           opacity: 1; }
       .slick-dots li button:before {
         position: absolute;
@@ -5662,7 +5662,7 @@ blockquote p {
         -moz-osx-font-smoothing: grayscale; }
     .slick-dots li.slick-active button:before {
       color: white;
-      opacity: 0.75; }
+      opacity: 1; }
 
 h3 {
   background: #00558B;
@@ -5728,19 +5728,26 @@ h3 {
     transform: scale(0.95);
     transition: all 300ms ease; } }
 
-.headline{
+.headline-container{
   position: relative;
   height: 240px;
   width: 100%;
-  background-size:100%;             /* 获取的图片尺寸标注为640*640， 以width为等比缩放基础 */
-  background-position: 0 50%;
 }
 
-.headline .title{
+.headline-container .title{
   position:absolute;
   bottom:25px;
   padding: 0 20px;
   color: rgb(255, 255, 255);
   font-size: 22px;
   font-weight: bold;
+}
+
+.headline-bg{
+  height: 100%;
+  width: 100%;
+  -webkit-filter: brightness(0.8); /* Chrome, Opera */
+  filter: brightness(0.75);
+  background-size:100%;             /* 获取的图片尺寸标注为640*640， 以width为等比缩放基础 */
+  background-position: 0 50%;
 }

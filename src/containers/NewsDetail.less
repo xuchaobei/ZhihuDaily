@@ -4,8 +4,14 @@
 	z-index: 1;
 	height: 200px;
 	width: 100%;	
-	background-size:100%;             /* 获取的图片尺寸标注为640*640， 以width为等比缩放基础 */
-	background-position: 0 50%;   	
+	.banner-bg{
+		height: 100%;
+		width: 100%;
+		-webkit-filter: brightness(0.8); /* Chrome, Opera */
+		filter: brightness(0.75);
+		background-size:100%;             /* 获取的图片尺寸标注为640*640， 以width为等比缩放基础 */
+		background-position: 0 50%;
+	}
 	.title{
 		position:absolute;
 		bottom:22px;

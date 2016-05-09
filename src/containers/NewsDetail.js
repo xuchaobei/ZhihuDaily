@@ -33,7 +33,8 @@ class NewsDetail extends Component {
         <div className="header">
           <div className="return" onClick={this.goBack}><img src={backUrl}/></div>
         </div>
-        <div className="banner" style={bannerStyle}>
+        <div className="banner" >
+          <div className="banner-bg" style={bannerStyle}/>
           <p className="title">{title}</p>
           <p className="corner">{image_source}</p>
         </div>

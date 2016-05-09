@@ -23,9 +23,9 @@ export default class Carousel extends Component {
       <Slider {...settings}>
         {
           topNews.map((item, index) => {
-            return <div className='headline' onClick={() => this.props.onClick(item.id)}
-                        style={{backgroundImage: 'url(' + item.image + ')'}}><p className="title">{item.title}</p>
-            </div>;
+            return <div className='headline-container' onClick={() => this.props.onClick(item.id)}><div
+                        className="headline-bg" style={{backgroundImage: 'url(' + item.image + ')'}}>
+            </div><p className="title">{item.title}</p></div>;
           })
         }
       </Slider>
