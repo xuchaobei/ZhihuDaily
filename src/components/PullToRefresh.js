@@ -9,20 +9,20 @@ const pullThreshold = 5;
 const pullDownOffset = 25;
 
 const spinConfig = {
-  lines: 13, 
-  length: 3, 
+  lines: 13,
+  length: 3,
   width: 2,
-  radius: 6, 
+  radius: 6,
   scale: 1,
-  corners: 1, 
-  color: '#000', 
+  corners: 1,
+  color: '#000',
   opacity: 0.25,
-  rotate: 0, 
+  rotate: 0,
   direction: 1,
-  speed: 1, 
+  speed: 1,
   trail: 60,
   fps: 20,
-  className: 'spinner', 
+  className: 'spinner',
   shadow: false,
   hwaccel: false,
   position: 'relative'
@@ -44,11 +44,12 @@ export default class PullToRefresh extends Component {
     this._onScrollHandler = this._onScroll.bind(this);
     this._onScrollEndHandler = this._onScrollEnd.bind(this);
     this._onRefreshHandler = this._onRefresh.bind(this);
+    this.scrollToTop = this.scrollToTop.bind(this);
   }
 
   render() { // eslint-disable-line
     const {children, pullDownLabel, options, onPullDown} = this.props;
-    return  (
+    return (
       <div className="pull-to-refresh-wrapper">
         <ReactIScroll ref="ref_iscroller" className="wrapper"
                       iScroll={iScroll}
@@ -58,25 +59,33 @@ export default class PullToRefresh extends Component {
                       onScrollEnd={this._onScrollEndHandler}
                       onRefresh={this._onRefreshHandler}>
           <div className="scroller">
-          {
-            onPullDown ? <div ref="ref_pulldown" className="pullDown scrolledUp">
-              <span className="pullDownIcon"></span><span className="pullDownLabel">{pullDownLabel}</span>
-            </div> : ''
-          }
-          {children}
-          {
-            this.state.showPullUp ? 
-            <div ref="ref_pullup" className="pullUp">
-              <Spinner config={spinConfig} />
-            </div> : ''
-          }
+            {
+              onPullDown ? <div ref="ref_pulldown" className="pullDown scrolledUp">
+                <span className="pullDownIcon"></span><span className="pullDownLabel">{pullDownLabel}</span>
+              </div> : ''
+            }
+            {children}
+            {
+              this.state.showPullUp ?
+                <div ref="ref_pullup" className="pullUp">
+                  <Spinner config={spinConfig}/>
+                </div> : ''
+            }
           </div>
         </ReactIScroll>
+        <span className="arrow arrow-up" onClick={this.scrollToTop}/>
       </div>
     );
   }
 
-  componentWillUnmount(){
+  componentDidUpdate() {
+    // 确保Carousel的高度被同步到iScroollInstance对象上
+    setTimeout(() => {
+      this.refresh();
+    }, 10);
+  }
+
+  componentWillUnmount() {
     if (this._iScrollInstance) {
       this._iScrollInstance.off('scrollStart');
       this._iScrollInstance.off('scrollEnd');
@@ -96,19 +105,19 @@ export default class PullToRefresh extends Component {
     }
   }
 
-  getScrollerOffset(){ // eslint-disable-line
+  getScrollerOffset() { // eslint-disable-line
     if (this._iScrollInstance) {
-     return this._iScrollInstance.y;
-    }else{
+      return this._iScrollInstance.y;
+    } else {
       return 0;
     }
   }
 
-  scrollToOffset(y, time){
-    if(this._iScrollInstance){
+  scrollToOffset(y, time) {
+    if (this._iScrollInstance) {
       this._iScrollInstance.scrollTo(0, y, (time === undefined ? 250 : time), iScroll.utils.ease.quadratic);
-    }else{
-      
+    } else {
+
     }
   }
 
@@ -120,7 +129,7 @@ export default class PullToRefresh extends Component {
 
   scrollToEnd() {
     if (this._iScrollInstance) {
-      this._iScrollInstance.scrollTo(0, this._iScrollInstance.wrapperHeight 
+      this._iScrollInstance.scrollTo(0, this._iScrollInstance.wrapperHeight
         - this._iScrollInstance.scrollerHeight + pullDownOffset * 2, 250, iScroll.utils.ease.elastic);
     }
   }
@@ -142,25 +151,25 @@ export default class PullToRefresh extends Component {
     }
   }
 
-  _showPullUpElNow(position, contentHeight){
-    if(this._pullUpEl){
+  _showPullUpElNow(position, contentHeight) {
+    if (this._pullUpEl) {
       this._pullUpEl.className = 'pullUp loading';
-      setTimeout(() =>{
+      setTimeout(() => {
         this._hidePullUpEl(position, contentHeight);
       }, 500);
     }
   }
 
-  _hidePullUpEl(position, contentHeight){
-    if(this._iScrollInstance.scrollerHeight === contentHeight){
-      this._iScrollInstance.scrollTo(0, position + pullDownOffset * 2, 300, 
+  _hidePullUpEl(position, contentHeight) {
+    if (this._iScrollInstance.scrollerHeight === contentHeight) {
+      this._iScrollInstance.scrollTo(0, position + pullDownOffset * 2, 300,
         iScroll.utils.ease.quadratic);
     }
   }
 
   _onScrollStart() {
     console.log("onScrollStart");
-    if(this._iScrollInstance){
+    if (this._iScrollInstance) {
       this._scrollStartPos = this._iScrollInstance.y;
     }
   }
@@ -174,14 +183,14 @@ export default class PullToRefresh extends Component {
       onPullDown();
     }
     const outOfRange = this._iScrollInstance.y + this._iScrollInstance.scrollerHeight - this._iScrollInstance.wrapperHeight - pullDownOffset * 2;
-    if( outOfRange < 0 && onPullUp){
+    if (outOfRange < 0 && onPullUp) {
       this._showPullUpElNow(this._iScrollInstance.y, this._iScrollInstance.scrollerHeight);
       onPullUp();
     }
   }
 
   _onScroll() {
-     console.log("onScroll");
+    console.log("onScroll");
     if (this._pullDownEl || this._pullUpEl) {
       if (this._scrollStartPos === 0 && this._iScrollInstance.y === 0) {
         // 'scroll' called, but scroller is not moving!
@@ -193,9 +202,8 @@ export default class PullToRefresh extends Component {
         // Set scrollStartPos to -1000 to be able to detect this state later...
         this._scrollStartPos = -1000;
       } else if (this._scrollStartPos === -1000 &&
-        (((!this._pullUpEl) && (!this._pullDownEl.className.match('flip')) && (this._iScrollInstance.y < 0)) ||
-                          ((!this._pullDownEl) && (!this._pullDownEl.className.match('flip'))
-                            && (this._iScrollInstance.y > 0)))) {
+        (((!this._pullUpEl) && (this._iScrollInstance.y < 0)) ||
+        ((!this._pullDownEl) && (this._iScrollInstance.y > 0)))) {
         // Scroller was not moving at first (and the trick above was applied), but now it's moving in the wrong direction.
         // I.e. the user is either scrolling up while having no "pull-up-bar",
         // or scrolling down while having no "pull-down-bar" => Disable the trick again and reset values...
@@ -203,7 +211,7 @@ export default class PullToRefresh extends Component {
         this._scrollStartPos = 0;
 
         // Adjust scrolling position to undo this "invalid" movement
-        this._iScrollInstance.scrollBy(0, - this._iScrollInstance.y, 0);
+        this._iScrollInstance.scrollBy(0, -this._iScrollInstance.y, 0);
       }
 
       if (this._pullDownEl) {
@@ -234,14 +242,14 @@ export default class PullToRefresh extends Component {
     this._iScrollInstance = this.refs.ref_iscroller.getIScroll();
     this._pullDownEl = this.refs.ref_pulldown;
     this._pullUpEl = this.refs.ref_pullup;
-    if((this._iScrollInstance.wrapperHeight < this._iScrollInstance.scrollerHeight - pullDownOffset) 
-        && !this.state.showPullUp && this.props.onPullUp){
+    if ((this._iScrollInstance.wrapperHeight < this._iScrollInstance.scrollerHeight - pullDownOffset)
+      && !this.state.showPullUp && this.props.onPullUp) {
       this.setState({
         showPullUp: true
       });
       return;
-    }else if((this._iScrollInstance.wrapperHeight >= this._iScrollInstance.scrollerHeight - pullDownOffset) 
-        && this.state.showPullUp && this.props.onPullUp){
+    } else if ((this._iScrollInstance.wrapperHeight >= this._iScrollInstance.scrollerHeight - pullDownOffset)
+      && this.state.showPullUp && this.props.onPullUp) {
       this.setState({
         showPullUp: false
       });
@@ -253,7 +261,7 @@ export default class PullToRefresh extends Component {
         // The pull-down-bar is fully visible:
         // Hide it with a simple 250ms animation
         setTimeout(()=>this._hidePullDownEl(250, true), 500);
-      }else if (this._iScrollInstance.y > -pullDownOffset) {
+      } else if (this._iScrollInstance.y > -pullDownOffset) {
         // The pull-down-bar is PARTLY visible:
         // Set up a shorter animation to hide it
         // Firt calculate a new margin-top for pullDownEl that matches the current scroll position
@@ -272,7 +280,7 @@ export default class PullToRefresh extends Component {
 
         // Hide pullDownEl with the new (shorter) animation (and reset the inline style again).
         // Do this in a new thread to avoid glitches in iOS webkit (will make sure the immediate margin-top change above is rendered)...
-        setTimeout( () => {
+        setTimeout(() => {
           this._hidePullDownEl(animTime, true);
         }, 0);
       } else {

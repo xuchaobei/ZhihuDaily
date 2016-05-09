@@ -3,6 +3,45 @@
   top: 0;
   bottom: 0;
   width: 100%;
+  position: absolute!important;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: inline-block;
+    margin: 10px 10px;
+    border-radius: 50px;
+    right:10px;
+    bottom:0px;
+    z-index: 1000;
+    background-color: rgb(0,150,135);
+    opacity:1;
+  }
+  .arrow:before, .arrow:after {
+    content: '';
+    border-color: transparent;
+    border-style: solid;
+    position: absolute;
+  }
+  .arrow-up:before {
+    border: none;
+    background-color: white;
+    height: 46%;
+    width: 20%;
+    top: 50%;
+    left: 40%;
+  }
+  .arrow-up:after {
+    left: 5px;
+    top: -50%;
+    border-width: 20px 15px;
+    border-bottom-color: white;
+  }
+
 }
 
 .wrapper{

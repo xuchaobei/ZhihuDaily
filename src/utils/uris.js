@@ -6,6 +6,7 @@ const urlBase = isMobile ? 'http://news-at.zhihu.com' : 'http://' + location.hos
 
 
 export default {
+	'latestNews': () => `${urlBase}/api/4/news/latest`,
 	'newsList': (date) => `${urlBase}/api/4/news/before/${date}`,
-	'newsDetail': (id) => `${urlBase}/api/4/news/${id}`,	
+	'newsDetail': (id) => `${urlBase}/api/4/news/${id}`
 }

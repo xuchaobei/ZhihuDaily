@@ -1,23 +1,29 @@
 import fetch from 'isomorphic-fetch'
 import uris from '../utils/uris'
 
-export const REQUEST_LIST = 'REQUEST_LIST'
-export const REQUEST_LIST_SUCCESS = 'REQUEST_LIST_SUCCESS'
-export const REQUEST_LIST_FAILURE = 'REQUEST_LIST_FAILURE'
-export const SET_POSITION_OFFSET = 'SET_POSITION_OFFSET'
+export const REQUEST_LIST = 'REQUEST_LIST';
+export const REQUEST_LIST_SUCCESS = 'REQUEST_LIST_SUCCESS';
+export const REQUEST_LIST_FAILURE = 'REQUEST_LIST_FAILURE';
+export const SET_POSITION_OFFSET = 'SET_POSITION_OFFSET';
+export const REQUEST_LATEST_NEWS_SUCCESS = 'REQUEST_LATEST_NEWS_SUCCESS';
 
 
-function requestList(date) {
+function requestList() {
   return {
-    type: REQUEST_LIST,
-    date
+    type: REQUEST_LIST
   }
 }
 
-function receiveList(date, json) {
+function receiveList( json) {
   return {
     type: REQUEST_LIST_SUCCESS,
-    date,
+    news: json
+  }
+}
+
+function receiveLatestNews( json) {
+  return {
+    type: REQUEST_LATEST_NEWS_SUCCESS,
     news: json
   }
 }
@@ -44,7 +50,7 @@ export default function fetchNewsList(date) {
     var request = new Request(uris.newsList(date));  
 
 
-    dispatch(requestList(date))
+    dispatch(requestList());
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
@@ -59,12 +65,28 @@ export default function fetchNewsList(date) {
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
 
-        dispatch(receiveList(date, json))
-      )
+        dispatch(receiveList(json))
+      );
 
       // In a real world app, you also want to
       // catch any error in the network call.
   }
+}
 
+export function fetchLatestNews() {
 
+  return function (dispatch) {
+
+    var request = new Request(uris.latestNews());
+
+    dispatch(requestList());
+
+    return fetch(request)
+      .then(response => response.json())
+      .then(json =>
+
+        dispatch(receiveLatestNews(json))
+      );
+
+  }
 }
