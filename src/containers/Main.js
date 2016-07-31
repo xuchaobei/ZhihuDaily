@@ -1,6 +1,6 @@
 import React, { Component,PropTypes} from 'react'
 import NewsItem from '../components/NewsItem'
-import fetchNewsList, {fetchLatestNews, setPositionOffset} from '../actions/MainAction'
+import fetchNewsList, {fetchLatestNews, setPositionOffset, setOffsetFromToday, setTitle} from '../actions/MainAction'
 import { connect } from 'react-redux'
 import PullToRefresh from '../components/PullToRefresh'
 import Carousel from '../components/Carousel'
@@ -11,9 +11,6 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      offsetFromNow: 0
-    };
     if (props.news == null || props.news.length == 0) {
       this.props.dispatch(fetchLatestNews());
 
@@ -21,7 +18,7 @@ class Main extends Component {
   }
 
   render() {
-    const {news, topNews, positionOffset} = this.props;
+    const {news, topNews, positionOffset, offsetFromToday, title} = this.props;
     const options = Object.assign({}, {
       useTransition: true,
       probeType: 2, click: true, startY: positionOffset
@@ -29,10 +26,11 @@ class Main extends Component {
     return (
       <div>
         <div className="header">
-          <span>知乎日报</span>
+          <span>{title}</span>
         </div>
         <div className="container">
-          <PullToRefresh ref="pull_to_refresh_wrapper" options={options} onPullUp={this.onPullUpToLoadMore.bind(this)}>
+          <PullToRefresh ref="pull_to_refresh_wrapper" options={options} onPullUp={this.onPullUpToLoadMore.bind(this)}
+          onScrollEnd = {this.onScrollEnd.bind(this)}>
             {
               (topNews && topNews.length > 0) ? <Carousel onClick={this.onNewsClick.bind(this)} topNews = {topNews}/>:''
             }
@@ -75,6 +73,7 @@ class Main extends Component {
     const today = this.dateStr(0);
     if (today === date) {
       //return (new Date()).pattern("yyyy-MM-dd EEE");
+
       return "今日热闻";
     } else {
       const month = date.substr(4, 2);
@@ -90,8 +89,15 @@ class Main extends Component {
   }
 
   onPullUpToLoadMore() {
-    const date = this.dateStr(this.state.offsetFromNow--);
+    var offsetDate = this.props.offsetFromToday;
+    const date = this.dateStr(offsetDate);
     this.props.dispatch(fetchNewsList(date));
+    this.props.dispatch(setOffsetFromToday(--offsetDate))
+  }
+
+  onScrollEnd() {
+    var offset = this.refs.pull_to_refresh_wrapper.getScrollerOffset();
+    this.props.dispatch(setTitle(offset));
   }
 }
 
@@ -106,7 +112,9 @@ function mapStateToProps(state) {
   return {
     news: mystate.news,
     topNews: mystate.topNews,
-    positionOffset: mystate.positionOffset
+    positionOffset: mystate.positionOffset,
+    offsetFromToday: mystate.offsetFromToday,
+    title : mystate.title
   }
 }
 

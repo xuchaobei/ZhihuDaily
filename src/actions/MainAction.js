@@ -5,6 +5,8 @@ export const REQUEST_LIST = 'REQUEST_LIST';
 export const REQUEST_LIST_SUCCESS = 'REQUEST_LIST_SUCCESS';
 export const REQUEST_LIST_FAILURE = 'REQUEST_LIST_FAILURE';
 export const SET_POSITION_OFFSET = 'SET_POSITION_OFFSET';
+export const SET_OFFSET_FROM_TODAY = 'SET_OFFSET_FROM_TODAY';
+export const SET_TITLE = 'SET_TITLE';
 export const REQUEST_LATEST_NEWS_SUCCESS = 'REQUEST_LATEST_NEWS_SUCCESS';
 
 
@@ -31,6 +33,20 @@ function receiveLatestNews( json) {
 export function setPositionOffset(offset){
   return {
     type: SET_POSITION_OFFSET,
+    positionOffset: offset
+  }
+}
+
+export function setOffsetFromToday(offset){
+  return {
+    type: SET_OFFSET_FROM_TODAY,
+    offsetFromToday: offset
+  }
+}
+
+export function setTitle(offset){
+  return {
+    type: SET_TITLE,
     positionOffset: offset
   }
 }

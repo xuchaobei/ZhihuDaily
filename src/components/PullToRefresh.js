@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactIScroll from 'react-iscroll';
 import iScroll from 'iscroll/build/iscroll-probe';
 import Spinner from 'react-spin';
+import fetchNewsList, {fetchLatestNews, setPositionOffset} from '../actions/MainAction';
 
 require('./PullToRefresh.less');
 
@@ -39,7 +40,7 @@ export default class PullToRefresh extends Component {
       showPullUp: false,
       keepPosition: false
     };
-
+    this._setTitle = props.onScrollEnd;
     this._onScrollStartHandler = this._onScrollStart.bind(this);
     this._onScrollHandler = this._onScroll.bind(this);
     this._onScrollEndHandler = this._onScrollEnd.bind(this);
@@ -187,6 +188,7 @@ export default class PullToRefresh extends Component {
       this._showPullUpElNow(this._iScrollInstance.y, this._iScrollInstance.scrollerHeight);
       onPullUp();
     }
+    this._setTitle();
   }
 
   _onScroll() {
