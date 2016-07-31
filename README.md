@@ -4,6 +4,9 @@
 <h3>截图</h3>
 ![image](https://github.com/xuchaobei/ZhihuDaily/blob/master/src/img/zhihu.gif)
 
+<h3>安装包</h3>
+在手机上安装apk文件夹下的安装包。只提供了Android平台的安装包。
+
 <h3>环境准备</h3>
 1、安装Nodejs环境。<br>
 2、安装Cordova环境。<br>
