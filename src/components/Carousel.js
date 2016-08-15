@@ -17,7 +17,7 @@ export default class Carousel extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
-      autoplay: false
+      autoplay: true
     };
     return (
       <Slider {...settings}>
