@@ -31,7 +31,6 @@ export default class Carousel extends Component {
       </Slider>
     )
   }
-
 }
 
 Carousel.propTypes = {
