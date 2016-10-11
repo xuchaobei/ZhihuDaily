@@ -22,3 +22,6 @@
 2、执行npm build。<br>
 3、将index.html和bundle.js，复制到对应platforms下，利用cordova进行打包（参考Cordova官网）<br>
 4、默认使用了crosswalk-webview插件，以避免不同webview内核带来的差异。
+
+<h3>LICENSE</h3>
+MIT
