@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path');
 var node_modules = path.resolve(__dirname, 'node_modules');
 var webpack = require('webpack');
@@ -10,7 +11,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, './'),
-    filename: "bundle.js",
+    filename: 'bundle.js',
     publicPath: ''
   },
   plugins: [

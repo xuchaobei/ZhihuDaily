@@ -1,16 +1,13 @@
-/**
- * Created by xu on 16/5/7.
- */
-import React, { Component,PropTypes} from 'react';
-import Slider from 'react-slick'
+import React, { Component, PropTypes } from 'react';
+import Slider from 'react-slick';
 
 require('./Carousel.css');
 
 export default class Carousel extends Component {
 
   render() {
-    const {topNews} = this.props;
-    var settings = {
+    const { topNews } = this.props;
+    const settings = {
       dots: true,
       infinite: true,
       speed: 500,
@@ -22,17 +19,16 @@ export default class Carousel extends Component {
     return (
       <Slider {...settings}>
         {
-          topNews.map((item, index) => {
-            return <div className='headline-container' onClick={() => this.props.onClick(item.id)}><div
-                        className="headline-bg" style={{backgroundImage: 'url(' + item.image + ')'}}>
-            </div><p className="title">{item.title}</p></div>;
-          })
+          topNews.map(item => (<div className="headline-container" onClick={() => this.props.onClick(item.id)}>
+            <div className="headline-bg" style={{ backgroundImage: `url(${item.image})` }} />
+            <p className="title">{item.title}</p></div>))
         }
       </Slider>
-    )
+    );
   }
 }
 
 Carousel.propTypes = {
-  topNews: PropTypes.array
+  topNews: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func,
 };

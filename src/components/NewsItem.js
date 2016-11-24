@@ -1,33 +1,29 @@
-import React, { Component,PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 require('./NewsItem.less');
 
-export default class NewsItem extends Component{
+export default class NewsItem extends Component {
 
-	constructor(props){
-		super(props)
-		
-	}
+  render() {
+    const { newsItem, onClick } = this.props;
+    return (
+      <div className="item" onClick={onClick}>
+        <div className="item-left">
+          <img alt="" src={newsItem.images[0]} />
+        </div>
+        <div className="item-right">
+          <p className="title">{newsItem.title}</p>
 
-	render() {
-		const {newsItem, onClick} = this.props;
-
-		return (		
-				<div className="item" onClick= { onClick }>
-					<div className="item-left">
-						<img src={newsItem.images[0]}/>
-					</div>					
-					<div className="item-right">
-						<p className="title">{newsItem.title}</p>
-						
-					</div>
-				</div>			
-		)		
-	}
-
-	
+        </div>
+      </div>
+    );
+  }
 }
 
 NewsItem.propTypes = {
-	newsItem : PropTypes.object
-}
+  newsItem: PropTypes.shape({
+    title: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+  }),
+  onClick: PropTypes.func
+};
