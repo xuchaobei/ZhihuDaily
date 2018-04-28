@@ -2,8 +2,6 @@
 仿知乎日报App，React+Redux+Cordova<br>
 
 <h3>截图</h3>
-
-
 ![pic](https://github.com/xuchaobei/ZhihuDaily/blob/master/src/img/zhihu.gif)
 
 <h3>安装包</h3>
