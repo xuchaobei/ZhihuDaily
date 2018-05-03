@@ -32,7 +32,7 @@
 
 如果使用的是Charles，修改方式为：Tools -> Rewrite，新增一条Rewrite规则，如下图所示。
 
-
+![image](https://github.com/xuchaobei/ZhihuDaily/blob/master/rewrite-rule.png)
 
 <h3>LICENSE</h3>
 MIT
