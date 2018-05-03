@@ -26,7 +26,7 @@
 
 <h3>注意事项</h3>
 
-在浏览器访问应用时，由于访问图片资源时，Header中的Referer值为localhost:3000，会被知乎禁止访问图片。<br>
+直接通过浏览器访问应用时，由于访问图片资源时，Header中的Referer值为localhost:3000，会被知乎禁止访问图片。<br>
 
 解决方案：使用Charles或Fiddler等代理软件，修改请求的Header，删除Referer。<br>
 
