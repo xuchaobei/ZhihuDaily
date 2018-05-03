@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import NewsItem from '../components/NewsItem';
 import fetchNewsList, { fetchLatestNews, setPositionOffset, setOffsetFromToday, setTitle } from '../actions/MainAction';
 import PullToRefresh from '../components/PullToRefresh';
@@ -22,7 +23,7 @@ class Main extends Component {
   onNewsClick(id) {
     const offset = this.refs.pull_to_refresh_wrapper.getScrollerOffset();
     this.props.dispatch(setPositionOffset(offset));
-    this.props.history.pushState(null, `/detail/${id}`);
+    this.context.router.push(`/detail/${id}`);
   }
 
   onPullUpToLoadMore() {
@@ -72,11 +73,11 @@ class Main extends Component {
       startY: positionOffset
     });
     return (
-      <div>
-        <div className="header">
-          <span>{title}</span>
+      <div className="b-container">
+        <div className="b-header">
+          <span className="b-header__title">{title}</span>
         </div>
-        <div className="container">
+        <div className="b-container__content">
           <PullToRefresh
             ref="pull_to_refresh_wrapper" options={options} onPullUp={this.onPullUpToLoadMore}
             onScrollEnd={this.onScrollEnd}
@@ -86,14 +87,13 @@ class Main extends Component {
             }
 
             {(news.length > 0) ?
-              news.map(item => item.stories.map((newsItem, newsIndex) => <div>{newsIndex === 0 ? <div className="date">{this.dateFormat(item.date)}</div> : ''}
+              news.map(item => item.stories.map((newsItem, newsIndex) => <div>{newsIndex === 0 ? <div className="b-container__date">{this.dateFormat(item.date)}</div> : ''}
                 <NewsItem
                   newsItem={newsItem}
                   onClick={() => this.onNewsClick(newsItem.id)}
                 />
               </div>))
               : ''}
-
           </PullToRefresh>
         </div>
       </div>
@@ -113,6 +113,9 @@ Main.propTypes = {
   title: PropTypes.string,
 };
 
+Main.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
   const mystate = state.mainReducer.toJSON();

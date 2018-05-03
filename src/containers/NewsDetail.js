@@ -30,7 +30,6 @@ class NewsDetail extends Component {
 
   render() {
     const { content, title, image, image_source, style_content } = this.props;
-
     const bannerStyle = {
       backgroundImage: `url(${image})`
     };
@@ -39,16 +38,15 @@ class NewsDetail extends Component {
         {
           (style_content != null) ? <style type="text/css">{style_content}</style> : ''
         }
-
-        <div className="header">
-          <div className="return" onClick={this.goBack}><img alt="" src={backUrl} /></div>
+        <div className="b-header">
+          <div className="b-header__return" onClick={this.goBack}><img alt="" src={backUrl} /></div>
         </div>
-        <div className="banner" >
-          <div className="banner-bg" style={bannerStyle} />
-          <p className="title">{title}</p>
-          <p className="corner">{image_source}</p>
+        <div className="b-banner" >
+          <div className="b-banner__bg" style={bannerStyle} />
+          <p className="b-banner__title">{title}</p>
+          <p className="b-banner__corner">{image_source}</p>
         </div>
-        <div className="container" dangerouslySetInnerHTML={this.createContentHtml(content)} />
+        <div className="b-content" dangerouslySetInnerHTML={this.createContentHtml(content)} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
-import { isMobile } from './deviceType';
+import { isShell } from './deviceType';
 
-const urlBase = isMobile ? 'http://news-at.zhihu.com' : `http://${location.hostname}:3000/zhihu`;
+const urlBase = isShell ? 'http://news-at.zhihu.com' : `http://${location.hostname}:3000/zhihu`;
 
 export default {
   latestNews: () => `${urlBase}/api/4/news/latest`,

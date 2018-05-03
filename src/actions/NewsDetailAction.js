@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import uris from '../utils/uris';
-import { isMobile } from '../utils/deviceType';
+import { isShell } from '../utils/deviceType';
 
 export const REQUEST_NEWS = 'REQUEST_NEWS';
 export const REQUEST_NEWS_SUCCESS = 'REQUEST_NEWS_SUCCESS';
@@ -42,7 +42,7 @@ function receiveNewsStyle(text) {
 
 function fetchNewsStyle(style) {
   let styleLink = style[0];
-  if (!isMobile) {
+  if (!isShell) {
     styleLink = style[0].replace('http://news-at.zhihu.com', 'http://localhost:3000/zhihu');
   }
 

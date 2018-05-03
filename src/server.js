@@ -8,6 +8,7 @@ var webpack = require('webpack');
 var proxyMiddleware = require('proxy-middleware');
 var config = require('./webpack.config');
 var url = require('url');
+
 var serverConfig = 'http://news-at.zhihu.com/';
 
 var app = new (require('express'))()

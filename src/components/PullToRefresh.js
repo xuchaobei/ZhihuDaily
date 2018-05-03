@@ -50,9 +50,9 @@ export default class PullToRefresh extends Component {
   render() { // eslint-disable-line
     const { children, pullDownLabel, options, onPullDown } = this.props;
     return (
-      <div className="pull-to-refresh-wrapper">
+      <div className="b-refresh-wrapper">
         <ReactIScroll
-          ref="ref_iscroller" className="wrapper"
+          ref="ref_iscroller"
           iScroll={iScroll}
           options={options}
           onScrollStart={this._onScrollStartHandler}
@@ -60,7 +60,7 @@ export default class PullToRefresh extends Component {
           onScrollEnd={this._onScrollEndHandler}
           onRefresh={this._onRefreshHandler}
         >
-          <div className="scroller">
+          <div>
             {
               onPullDown ? <div ref="ref_pulldown" className="pullDown scrolledUp">
                 <span className="pullDownIcon" /><span className="pullDownLabel">{pullDownLabel}</span>
@@ -75,7 +75,7 @@ export default class PullToRefresh extends Component {
             }
           </div>
         </ReactIScroll>
-        <span className="arrow arrow-up" onClick={this.scrollToTop} />
+        <span className="b-arrow" onClick={this.scrollToTop} />
       </div>
     );
   }

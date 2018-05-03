@@ -24,5 +24,15 @@
 3、将index.html和bundle.js，复制到对应platforms下，利用cordova进行打包（参考Cordova官网）<br>
 4、默认使用了crosswalk-webview插件，以避免不同webview内核带来的差异。
 
+<h3>注意事项</h3>
+
+在浏览器访问应用时，由于访问图片资源时，Header中的Referer值为localhost:3000，会被知乎禁止访问图片。<br>
+
+解决方案：使用Charles或Fiddler等代理软件，修改请求的Header，删除Referer。<br>
+
+如果使用的是Charles，修改方式为：Tools -> Rewrite，新增一条Rewrite规则，如下图所示。
+
+
+
 <h3>LICENSE</h3>
 MIT

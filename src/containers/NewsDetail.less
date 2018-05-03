@@ -1,10 +1,11 @@
-.banner{
+.b-banner{
 	position: absolute;
 	top: 45px;
 	z-index: 1;
 	height: 200px;
 	width: 100%;	
-	.banner-bg{
+
+	&__bg{
 		height: 100%;
 		width: 100%;
 		-webkit-filter: brightness(0.8); /* Chrome, Opera */
@@ -12,7 +13,8 @@
 		background-size:100%;             /* 获取的图片尺寸标注为640*640， 以width为等比缩放基础 */
 		background-position: 0 50%;
 	}
-	.title{
+
+	&__title{
 		position:absolute;
 		bottom:22px;
 		padding: 0 20px;
@@ -20,7 +22,8 @@
 		font-size: 20px;	
 		font-weight: bold;
 	}
-	.corner{
+	
+	&__corner{
 		position:absolute;	
 		right:0px;	
 		bottom:5px;		
@@ -31,16 +34,6 @@
 	}
 }
 
-img{
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-}
 
-.return{
-	margin:auto 10px;	
-	width: 32px;
-	height: 32px;	
-}
 
 
